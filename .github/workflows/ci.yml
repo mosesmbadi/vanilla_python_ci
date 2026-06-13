@@ -22,9 +22,11 @@ jobs:
 
       - name: Lint with Pylint
         run: |
-          pip install pylint
+          pip install pylint pytest
+          ps
 
       - name: Run tests with coverage
         run: |
           cd api
           pytest
+          pwd
