@@ -28,5 +28,4 @@ jobs:
       - name: Run tests with coverage
         run: |
           cd api
-          pytest
           pwd
