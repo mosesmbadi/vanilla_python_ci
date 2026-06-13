@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: tegbe
+      POSTGRES_PASSWORD: tegbe
+      POSTGRES_DB: tegbe
+    volumes:
+      # - postgres_db:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  api:
+    build: ./api
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://tegbe:tegbe@db:5432/tegbe
+    depends_on:
+      - db
+
+  client:
+    build: ./client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client_files:/var/uploaded_images
+
+volumes:
+  postgres_db:
+  postgres_data:
